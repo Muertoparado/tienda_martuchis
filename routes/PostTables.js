@@ -33,8 +33,8 @@ app.post('/tipodoc/add', validacionTipoDoc, (req,res)=>{
 });
 
 app.post('/valoracion/add', validacionValoracion, (req,res)=>{
-    const {val_id,val_descripcion,val_estrellas, fk_id_usuario }=req.body
-    const datos={val_id,val_descripcion,val_estrellas,fk_id_usuario};
+    const {val_id,val_descripcion,val_estrellas }=req.body
+    const datos={val_id,val_descripcion,val_estrellas};
     console.log(datos);
     con.query(/*sql */ `INSERT INTO valoracion SET ?`,[datos], (err,data,fil)=>{
         if (err) {
@@ -49,5 +49,6 @@ app.post('/valoracion/add', validacionValoracion, (req,res)=>{
     })
     
 });
+
 
 export default app;

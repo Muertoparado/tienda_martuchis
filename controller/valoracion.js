@@ -23,7 +23,7 @@ __decorate([
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
         else
-            throw { status: 400, message: `el a dato no cumple los parametros` };
+            throw { status: 400, message: `el dato a no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], valoracion.prototype, "val_id", void 0);
@@ -34,7 +34,7 @@ __decorate([
         if (/^[a-z A-Z]+$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el v dato no cumple los parametros` };
+            throw { status: 400, message: `el dato b no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], valoracion.prototype, "val_descripcion", void 0);
@@ -42,10 +42,10 @@ __decorate([
     Expose({ name: 'val_estrellas' }),
     IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio` }; } }),
     Transform(({ value }) => {
-        if (/^[0-9]+$/.test(value))
-            return value;
+        if (Math.floor(value) && typeof value === 'number')
+            return Math.floor(value);
         else
-            throw { status: 400, message: `el dato ac no cumple los parametros` };
+            throw { status: 400, message: `el dato no c cumple los parametros` };
     }, { toClassOnly: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], valoracion.prototype, "val_estrellas", void 0);

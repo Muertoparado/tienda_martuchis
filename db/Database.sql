@@ -3,10 +3,11 @@ USE tiendaMartuchis;
 CREATE TABLE valoracion(
     val_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     val_descripcion VARCHAR(100),
-    fk_id_usuario INT NOT NULL,
+    fk_id_usuario INT,
     val_estrellas INT(2)
 
 );
+
 
 CREATE TABLE usuario(
     usu_id INT NOT NULL PRIMARY KEY,
@@ -27,9 +28,8 @@ CREATE TABLE tipo_documento(
 
 
 CREATE TABLE envio(
-    env_id INT(10) NOT NULL PRIMARY KEY,
-    env_ubicacion INT(255) NOT NULL,
-    env_estado INT(5) NOT NULL,
+    env_id INT(20) NOT NULL PRIMARY KEY,
+    fk_env_estado INT(5) NOT NULL,
     fk_venta_id INT(10) NOT NULL
 );
 
@@ -61,8 +61,8 @@ CREATE TABLE estado(
 CREATE TABLE ubicacion (
     ubi_id INT(255) NOT NULL PRIMARY KEY,
     fk_ciudad_id INT(255) NOT NULL,
-    fk_usu_direccion VARCHAR(20) NOT NULL
-    
+    fk_usu_direccion INT(10) NOT NULL,
+    fk_env_id INT(20)
 );
 
 
@@ -96,7 +96,7 @@ FOREIGN KEY (fk_id_tip_documento) REFERENCES tipo_documento(tip_id);
 
 ALTER TABLE usuario
 ADD CONSTRAINT fk_id_envio
-FOREIGN KEY (fk_id_envio) REFERENCES envio(fk_env_id);
+FOREIGN KEY (fk_id_envio) REFERENCES envio(env_id);
 
 ALTER TABLE producto
 ADD CONSTRAINT fk_categoria_id
@@ -120,7 +120,7 @@ ADD CONSTRAINT fk_env_estado
 FOREIGN KEY (fk_env_estado) REFERENCES estado(est_id);
 
 ALTER TABLE ciudad
-ADD CONSTRAINT fk_departamento
+ADD CONSTRAINT fk_departamento_id
 FOREIGN KEY (fk_departamento) REFERENCES ciudad(ci_id);
 
 ALTER TABLE departamento
