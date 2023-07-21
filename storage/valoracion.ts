@@ -17,7 +17,8 @@ export class valoracion {
         val_descripcion: String;
 
     @Expose({name:'val_estrellas'})
-    @Transform(({value})=>{if(/^[a-z A-Z]+$/.test(value)) return value;
+    @IsDefined({message: ()=>{throw{status:401, message:`el mensaje es obligatorio`}}})
+    @Transform(({value})=>{if(/^[0-9]+$/.test(value)) return value;
         else throw {status:400, message:`el dato ac no cumple los parametros`};},{toClassOnly:true})
         val_estrellas: String;
 
@@ -26,5 +27,6 @@ export class valoracion {
         this.val_id=val_id;
         this.val_descripcion=val_descripcion;
         this.val_estrellas=val_estrellas;
+        
     }
 }

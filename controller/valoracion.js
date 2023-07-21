@@ -40,8 +40,9 @@ __decorate([
 ], valoracion.prototype, "val_descripcion", void 0);
 __decorate([
     Expose({ name: 'val_estrellas' }),
+    IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio` }; } }),
     Transform(({ value }) => {
-        if (/^[a-z A-Z]+$/.test(value))
+        if (/^[0-9]+$/.test(value))
             return value;
         else
             throw { status: 400, message: `el dato ac no cumple los parametros` };
