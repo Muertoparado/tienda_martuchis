@@ -10,10 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { IsDefined } from 'class-validator';
 import { Expose, Transform } from 'class-transformer';
 export class valoracion {
-    constructor(val_id, val_descripcion, val_estrellas) {
+    constructor(val_id, val_descripcion, val_estrellas, fk_id_usuario) {
         this.val_id = val_id;
         this.val_descripcion = val_descripcion;
         this.val_estrellas = val_estrellas;
+        this.fk_id_usuario = fk_id_usuario;
     }
 }
 __decorate([
@@ -49,3 +50,14 @@ __decorate([
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], valoracion.prototype, "val_estrellas", void 0);
+__decorate([
+    Expose({ name: 'fk_id_usuario' }),
+    IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio` }; } }),
+    Transform(({ value }) => {
+        if (Math.floor(value) && typeof value === 'number')
+            return Math.floor(value);
+        else
+            throw { status: 400, message: `el dato a no cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], valoracion.prototype, "fk_id_usuario", void 0);
