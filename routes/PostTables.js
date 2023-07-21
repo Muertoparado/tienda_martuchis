@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import validacionTipoDoc from '../middleware/validacionTipoDoc.js'
 import validacionValoracion from '../middleware/validacionValoracion.js';
-
+import validacionUsuario from '../middleware/validacionUsuario.js';
 import mysql from 'mysql2';
 
 
@@ -44,6 +44,24 @@ app.post('/valoracion/add', validacionValoracion, (req,res)=>{
         }
 
     console.log("post tipo documento");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
+app.post('/usuario/add', validacionUsuario, (req,res)=>{
+    const {usu_id,usu_nombre,usu_apellido,usu_telefono,usu_direccion,usu_email,fk_id_tip_documento,fk_id_envio}=req.body
+    const datos={usu_id,usu_nombre,usu_apellido,usu_telefono,usu_direccion,usu_email,fk_id_tip_documento,fk_id_envio};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO usuario SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post usuario");
     res.send(JSON.stringify(data));
     console.log(data);
     })
