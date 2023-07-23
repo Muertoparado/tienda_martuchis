@@ -4,6 +4,7 @@ import validacionValoracion from '../middleware/validacionValoracion.js';
 import validacionUsuario from '../middleware/validacionUsuario.js';
 import validacionUbicacion from '../middleware/validacionUbicacion.js';
 import validacionPais from '../middleware/validacionPais.js';
+import validacionDepartamento from '../middleware/validacionDepartamento.js';
 import mysql from 'mysql2';
 
 
@@ -105,6 +106,25 @@ app.post('/pais/add', validacionPais, (req,res)=>{
     })
     
 });
+
+app.post('/dep/add', validacionDepartamento, (req,res)=>{
+    const {dep_id,dep_nombre,dep_abreviatura,fk_pais_id}=req.body
+    const datos={dep_id,dep_nombre,dep_abreviatura,fk_pais_id};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO departamento SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post departamento");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
 
 
 export default app;
