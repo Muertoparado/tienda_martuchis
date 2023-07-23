@@ -71,6 +71,22 @@ VALUES
     (103, 'Juego de mesa', 'Juego de mesa para toda la familia', 20, 'juego_mesa.jpg', 3),
     (104, 'Reloj digital', 'Reloj digital con cronómetro', 15, 'reloj_digital.jpg', 4),
     (105, 'Zapatos deportivos', 'Zapatos deportivos para correr', 25, 'zapatos_deportivos.jpg', 5),
-    (106, 'Pelota de fútbol', 'Pelota de fútbol tamaño oficial', 40, 'pelota_futbol.jpg', 1)
+    (106, 'Pelota de fútbol', 'Pelota de fútbol tamaño oficial', 40, 'pelota_futbol.jpg', 1);
 
+    INSERT INTO ciudad (ci_id, ci_nombre, ci_abreviatura, fk_departamento) VALUES
+(1, 'Ciudad 1', 'C1', 1),
+(2, 'Ciudad 2', 'C2', 1),
+(3, 'Ciudad 3', 'C3', 2),
+(4, 'Ciudad 4', 'C4', 3),
+(5, 'Ciudad 5', 'C5', 3);
+
+
+INSERT INTO departamento (dep_id, dep_nombre, dep_abreviatura, fk_pais_id) VALUES
+(1, 'Departamento 1', 'Dep 1', 1),
+(2, 'Departamento 2', 'Dep 2', 1),
+(3, 'Departamento 3', 'Dep 3', 2);
+INSERT INTO pais (pa_id, pa_nombre, pa_abreviatura) VALUES
+(1, 'Pais 1', 'P1'),
+(2, 'Pais 2', 'P2'),
+(3, 'Pais 3', 'P3');
 

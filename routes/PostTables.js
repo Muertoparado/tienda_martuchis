@@ -2,6 +2,8 @@ import {Router} from 'express';
 import validacionTipoDoc from '../middleware/validacionTipoDoc.js'
 import validacionValoracion from '../middleware/validacionValoracion.js';
 import validacionUsuario from '../middleware/validacionUsuario.js';
+import validacionUbicacion from '../middleware/validacionUbicacion.js';
+import validacionPais from '../middleware/validacionPais.js';
 import mysql from 'mysql2';
 
 
@@ -62,6 +64,42 @@ app.post('/usuario/add', validacionUsuario, (req,res)=>{
         }
 
     console.log("post usuario");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
+app.post('/ubicacion/add', validacionUbicacion, (req,res)=>{
+    const {ubi_id,fk_ciudad_id,fk_usu_id,fk_env_id}=req.body
+    const datos={ubi_id,fk_ciudad_id,fk_usu_id,fk_env_id};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO ubicacion SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post ubicacion");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
+app.post('/pais/add', validacionPais, (req,res)=>{
+    const {pa_id,pa_nombre,pa_abreviatura}=req.body
+    const datos={pa_id,pa_nombre,pa_abreviatura};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO pais SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post pais");
     res.send(JSON.stringify(data));
     console.log(data);
     })

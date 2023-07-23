@@ -61,7 +61,7 @@ CREATE TABLE estado(
 CREATE TABLE ubicacion (
     ubi_id INT(255) NOT NULL PRIMARY KEY,
     fk_ciudad_id INT(255) NOT NULL,
-    fk_usu_direccion INT(10) NOT NULL,
+    fk_usu_id INT(10) NOT NULL,
     fk_env_id INT(20)
 );
 
@@ -112,8 +112,8 @@ ADD CONSTRAINT fk_ciudad_id
 FOREIGN KEY (fk_ciudad_id) REFERENCES ciudad(ci_id);
 
 ALTER TABLE ubicacion
-ADD CONSTRAINT fk_usu_direccion
-FOREIGN KEY (fk_usu_direccion) REFERENCES usuario(usu_id);
+ADD CONSTRAINT fk_usu_id
+FOREIGN KEY (fk_usu_id) REFERENCES usuario(usu_id);
 
 ALTER TABLE envio
 ADD CONSTRAINT fk_env_estado
@@ -121,7 +121,7 @@ FOREIGN KEY (fk_env_estado) REFERENCES estado(est_id);
 
 ALTER TABLE ciudad
 ADD CONSTRAINT fk_departamento_id
-FOREIGN KEY (fk_departamento) REFERENCES ciudad(ci_id);
+FOREIGN KEY (fk_departamento) REFERENCES departamento(dep_id);
 
 ALTER TABLE departamento
 ADD CONSTRAINT fk_pais

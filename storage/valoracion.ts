@@ -24,7 +24,7 @@ export class valoracion {
         else throw {status:400, message:`el dato no c cumple los parametros`};},{toClassOnly: true})
         val_estrellas:number;
 
-   @Expose({name:'fk_id_usuario'})
+    @Expose({name:'fk_id_usuario'})
     @IsDefined({message: ()=>{throw{status:401, message:`el mensaje es obligatorio`}}})
     @Transform(({value})=>{
         if(Math.floor(value)&& typeof value === 'number')
