@@ -10,6 +10,7 @@ import validacionCiudad from '../middleware/validacionCiudad.js';
 import validacionEstado from '../middleware/validacionEstado.js';
 import validacionEnvio from '../middleware/validacionEnvio.js';
 import validacionVenta from '../middleware/validacionVenta.js';
+import validacionFactura from '../middleware/validacionFactura.js';
 
 
 let con= undefined;
@@ -200,6 +201,25 @@ app.post('/venta/add', validacionVenta, (req,res)=>{
     })
     
 });
+
+app.post('/factura/add', validacionFactura, (req,res)=>{
+    const {fac_id}=req.body
+    const datos={fac_id};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO factura SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post venta");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
 
 
 export default app;
