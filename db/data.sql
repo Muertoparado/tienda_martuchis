@@ -38,18 +38,13 @@ VALUES
     (10, 'Licencia de conducir', 'LIC');
 
 
-INSERT INTO envio (env_id,fk_env_estado, fk_venta_id)
+INSERT INTO envio (env_id,fk_env_estado)
 VALUES
-    (1, 1, 1),
-    (2, 2, 2),
-    (3,  3, 3),
-    (4,  4, 4),
-    (5,  5, 5),
-    (6,  1, 6),
-    (7,  2, 7),
-    (8, 3, 8),
-    (9,  4, 9),
-    (10, 5, 10);
+    (1, 2);
+
+INSERT INTO estado (est_id,est_nombre)
+VALUES
+    (1, "qwerty");
 
 INSERT INTO venta (venta_id, fk_producto_id, venta_hora)
 VALUES
