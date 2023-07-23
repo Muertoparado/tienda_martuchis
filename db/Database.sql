@@ -69,7 +69,7 @@ CREATE TABLE categoria(
 );
 
 CREATE TABLE estado(
-    est_id BIGINT(5) NOT NULL PRIMARY KEY,
+    est_id INT(5) NOT NULL PRIMARY KEY,
     est_nombre VARCHAR(50) NOT NULL
 );
 

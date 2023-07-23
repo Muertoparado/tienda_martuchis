@@ -7,6 +7,8 @@ import validacionPais from '../middleware/validacionPais.js';
 import validacionDepartamento from '../middleware/validacionDepartamento.js';
 import mysql from 'mysql2';
 import validacionCiudad from '../middleware/validacionCiudad.js';
+import validacionEstado from '../middleware/validacionEstado.js';
+import validacionEnvio from '../middleware/validacionEnvio.js';
 
 
 let con= undefined;
@@ -144,6 +146,41 @@ app.post('/ciudad/add', validacionCiudad, (req,res)=>{
     
 });
 
+app.post('/estado/add', validacionEstado, (req,res)=>{
+    const {est_id,est_nombre}=req.body
+    const datos={est_id,est_nombre};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO estado SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post estado");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
+app.post('/envio/add', validacionEnvio, (req,res)=>{
+    const {env_id,fk_env_estado}=req.body
+    const datos={env_id,fk_env_estado};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO envio SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post envio");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
 
 
 
