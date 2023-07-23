@@ -11,6 +11,7 @@ import validacionEstado from '../middleware/validacionEstado.js';
 import validacionEnvio from '../middleware/validacionEnvio.js';
 import validacionVenta from '../middleware/validacionVenta.js';
 import validacionFactura from '../middleware/validacionFactura.js';
+import validacionProducto from '../middleware/validacionProducto.js';
 
 
 let con= undefined;
@@ -213,13 +214,30 @@ app.post('/factura/add', validacionFactura, (req,res)=>{
             return;
         }
 
-    console.log("post venta");
+    console.log("post factura");
     res.send(JSON.stringify(data));
     console.log(data);
     })
     
 });
 
+app.post('/producto/add', validacionProducto, (req,res)=>{
+    const {prod_id,prod_nombre, prod_descripcion,prod_cantidad,fk_categoria_id,prod_imagen}=req.body
+    const datos={prod_id,prod_nombre, prod_descripcion,prod_cantidad,fk_categoria_id,prod_imagen};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO producto SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post Producto");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
 
 
 export default app;

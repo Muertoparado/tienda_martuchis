@@ -92,3 +92,5 @@ INSERT INTO pais (pa_id, pa_nombre, pa_abreviatura) VALUES
 
 INSERT INTO factura (fac_id) VALUES
 (2);
+INSERT INTO categoria (cat_id,cat_nombre) VALUES
+(1,"asasas");
