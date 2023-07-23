@@ -6,6 +6,7 @@ import validacionUbicacion from '../middleware/validacionUbicacion.js';
 import validacionPais from '../middleware/validacionPais.js';
 import validacionDepartamento from '../middleware/validacionDepartamento.js';
 import mysql from 'mysql2';
+import validacionCiudad from '../middleware/validacionCiudad.js';
 
 
 let con= undefined;
@@ -124,6 +125,25 @@ app.post('/dep/add', validacionDepartamento, (req,res)=>{
     })
     
 });
+
+app.post('/ciudad/add', validacionCiudad, (req,res)=>{
+    const {ci_id,ci_nombre,ci_abreviatura,fk_departamento}=req.body
+    const datos={ci_id,ci_nombre,ci_abreviatura,fk_departamento};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO ciudad SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post ciudad");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
 
 
 
