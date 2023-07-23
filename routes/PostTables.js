@@ -12,6 +12,7 @@ import validacionEnvio from '../middleware/validacionEnvio.js';
 import validacionVenta from '../middleware/validacionVenta.js';
 import validacionFactura from '../middleware/validacionFactura.js';
 import validacionProducto from '../middleware/validacionProducto.js';
+import validacionCategoria from '../middleware/validacionCategoria.js';
 
 
 let con= undefined;
@@ -226,6 +227,24 @@ app.post('/producto/add', validacionProducto, (req,res)=>{
     const datos={prod_id,prod_nombre, prod_descripcion,prod_cantidad,fk_categoria_id,prod_imagen};
     console.log(datos);
     con.query(/*sql */ `INSERT INTO producto SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post Producto");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
+
+app.post('/categoria/add', validacionCategoria, (req,res)=>{
+    const {cat_id,cat_nombre}=req.body
+    const datos={cat_id,cat_nombre};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO categoria SET ?`,[datos], (err,data,fil)=>{
         if (err) {
             console.error("Error al ejecutar la consulta de inserción: ", err);
             res.status(500).send("Error al ejecutar la consulta de inserción");
