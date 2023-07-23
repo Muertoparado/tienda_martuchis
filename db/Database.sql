@@ -30,13 +30,19 @@ CREATE TABLE tipo_documento(
 CREATE TABLE envio(
     env_id INT(20) NOT NULL PRIMARY KEY,
     fk_env_estado INT(5) NOT NULL,
-    fk_venta_id INT(10) NOT NULL
+
 );
 
 CREATE TABLE venta(
-    venta_id INT(10) NOT NULL PRIMARY KEY,
-    fk_producto_id INT(5) NOT NULL,
-    venta_hora TIMESTAMP
+    ven_id INT(10) NOT NULL PRIMARY KEY,
+    fk_env_id INT(20) NOT NULL,
+    venta_hora TIMESTAMP,
+    fk_factura_id INT(20) NOT NULL
+);
+
+CREATE TABLE factura(
+    fac_id INT(20) NOT NULL PRIMARY KEY,
+    fk_productos INT(5) NOT NULL
 );
 
 CREATE TABLE producto(
@@ -47,6 +53,15 @@ CREATE TABLE producto(
     prod_imagen VARCHAR(50) NOT NULL,
     fk_categoria_id INT(5) NOT NULL
 );
+
+CREATE TABLE factura_producto (
+    fac_id INT(20) NOT NULL,
+    prod_id INT(5) NOT NULL,
+    PRIMARY KEY (fac_id, prod_id),
+    FOREIGN KEY (fac_id) REFERENCES factura(fac_id),
+    FOREIGN KEY (prod_id) REFERENCES producto(prod_id)
+);
+
 
 CREATE TABLE categoria(
     cat_id INT(5) NOT NULL PRIMARY KEY,
@@ -127,3 +142,11 @@ ALTER TABLE departamento
 ADD CONSTRAINT fk_pais
 FOREIGN KEY (fk_pais_id) REFERENCES pais(pa_id);
 
+ALTER TABLE venta
+ADD CONSTRAINT fk_factura
+FOREIGN KEY (fk_factura_id) REFERENCES factura(fac_id);
+
+
+ALTER TABLE venta
+ADD CONSTRAINT fk_env_idd
+FOREIGN KEY (fk_env_id) REFERENCES envio(env_id);
