@@ -9,6 +9,7 @@ import mysql from 'mysql2';
 import validacionCiudad from '../middleware/validacionCiudad.js';
 import validacionEstado from '../middleware/validacionEstado.js';
 import validacionEnvio from '../middleware/validacionEnvio.js';
+import validacionVenta from '../middleware/validacionVenta.js';
 
 
 let con= undefined;
@@ -182,6 +183,23 @@ app.post('/envio/add', validacionEnvio, (req,res)=>{
     
 });
 
+app.post('/venta/add', validacionVenta, (req,res)=>{
+    const {ven_id, fk_env_id,venta_hora,fk_factura_id}=req.body
+    const datos={ven_id, fk_env_id,venta_hora,fk_factura_id};
+    console.log(datos);
+    con.query(/*sql */ `INSERT INTO venta SET ?`,[datos], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+
+    console.log("post venta");
+    res.send(JSON.stringify(data));
+    console.log(data);
+    })
+    
+});
 
 
 export default app;

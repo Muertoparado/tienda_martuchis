@@ -90,3 +90,5 @@ INSERT INTO pais (pa_id, pa_nombre, pa_abreviatura) VALUES
 (2, 'Pais 2', 'P2'),
 (3, 'Pais 3', 'P3');
 
+INSERT INTO factura (fac_id) VALUES
+(1);

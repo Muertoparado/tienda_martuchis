@@ -42,7 +42,7 @@ CREATE TABLE venta(
 
 CREATE TABLE factura(
     fac_id INT(20) NOT NULL PRIMARY KEY,
-    fk_productos INT(5) NOT NULL
+    
 );
 
 CREATE TABLE producto(
