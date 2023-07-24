@@ -1,4 +1,5 @@
-**TIENDA MARTUCHIS** 
+# TIENDA MARTUCHIS
+---
 
 En esta página web encontrarás una experiencia de compra excepcional, donde podrás disfrutar de una visualización detallada de cada producto. Nuestras fotografías profesionales capturan la belleza y los detalles únicos de cada artículo, permitiéndote apreciar su artesanía y calidad desde todos los ángulos.
 
@@ -6,17 +7,22 @@ Además, cada producto viene acompañado de descripciones meticulosas que destac
 
 Hemos creado un sistema de carro de compras intuitivo, donde podrás seleccionar tus artículos favoritos y almacenarlos para una fácil revisión antes de finalizar tu compra. Una vez que estés listo para realizar el pedido, validaremos tus datos personales de forma segura para garantizar una entrega exitosa y puntual.
 
-**Objetivo General**
+### Objetivo General
+---
 
 El objetivo general del proyecto es crear una página web de comercio electrónico que permita a los usuarios realizar compras en línea y ofrecerles una experiencia única al explorar los productos, a través de descripciones detalladas de cada artículo.
 
-**Objetivo Especifico**
+### Objetivo Especifico
+---
 
 - Generar la trasabilidad de la compra del usuario, verificando la cantidad de productos y la dirección de entrega.
 
 - Realizar la verificación del pago y el envío del producto a la dirección especifica.
 
 - Llevar el control del inventario distintos productos productos mostrados adicional agregar nuevas cantidades o productos. 
+
+
+---
 
 # Guía para Inicializar un Repositorio de GitHub y Configurar las Dependencias
 
@@ -73,19 +79,20 @@ Puedes iniciar el proyecto usando `npm start` para ejecutar la versión compilad
 
 ## ESTRUCTURA DEL PROYECTO
 
-*Nota*
+## *Nota*
 Por favor, asegúrate de que el servidor y la base de datos estén configurados correctamente antes de realizar las pruebas con estos endpoints. También es importante tener en cuenta que los tokens JWT generados con el endpoint GET {server}/app/ tienen una vigencia de 1 hora.
 
 En este caso explicaremos los metodos post generales para guardar y validar la información en cada tabla.
 
-**terminos generales**
-**Descripción**
+## terminos generales
+---
+### **Descripción**
 Este endpoint se utiliza para agregar una nueva valoración a la base de datos.
 
-**Método**
+### **Método**
 POST
 
-**Parámetros de la URL**
+### **Parámetros de la URL**
 Ninguno
 
 **Encabezados**
@@ -310,5 +317,80 @@ Por supuesto, si deseas eliminar la sección de "Respuesta exitosa" en la docume
 
 ---
 
+# FUNCIONALIDAD ENDPOINTS ESPECIALES 
+**url (/app2/...)**
+---
+A continuación, se presenta la documentación actualizada para los endpoints proporcionados:
+
+---
+
+## GET /productos/:id?
+
+**Descripción:** Obtiene una lista de todos los productos o un producto específico según el ID proporcionado.
+
+### Parámetros de la URL
+- `id` (opcional): ID del producto que se desea obtener. Si se proporciona este parámetro, se obtendrá solo el producto específico con el ID correspondiente.
+
+### Respuesta
+Si se proporciona el parámetro `id`, se devuelve el producto específico con el ID correspondiente. Si no se proporciona el parámetro, se devuelven todos los productos.
+
+---
+
+## GET /envio/:id?
+
+**Descripción:** Obtiene una lista de todos los registros de envío o un registro de envío específico según el ID proporcionado.
+
+### Parámetros de la URL
+- `id` (opcional): ID del registro de envío que se desea obtener. Si se proporciona este parámetro, se obtendrá solo el registro de envío específico con el ID correspondiente.
+
+### Respuesta
+Si se proporciona el parámetro `id`, se devuelve el registro de envío específico con el ID correspondiente. Si no se proporciona el parámetro, se devuelven todos los registros de envío.
+
+---
+
+## GET /cantidad/:id
+
+**Descripción:** Obtiene la cantidad de un producto específico según el ID proporcionado.
+
+### Parámetros de la URL
+- `id`: ID del producto del cual se desea obtener la cantidad.
+
+### Respuesta
+Se devuelve la cantidad del producto específico con el ID proporcionado.
+
+---
+
+## PUT /put/producto/:id
+
+**Descripción:** Actualiza la cantidad de un producto específico según el ID proporcionado.
+
+### Parámetros de la URL
+- `id`: ID del producto que se desea actualizar.
+
+### Cuerpo de la solicitud
+```json
+{
+  "prod_cantidad": 20
+}
+```
+
+### Respuesta
+- 200 OK: El producto se ha actualizado correctamente.
+- 400 Bad Request: La cantidad del producto proporcionada no es un número válido.
+- 404 Not Found: El producto con el ID especificado no fue encontrado.
+
+---
+
+## GET /estadoenvio/:id
+
+**Descripción:** Obtiene el estado de los envíos asociados a un usuario específico según el ID proporcionado.
+
+### Parámetros de la URL
+- `id`: ID del usuario del cual se desea obtener el estado de los envíos.
+
+### Respuesta
+Se devuelve una lista con los registros de envío asociados al usuario especificado, incluyendo el ID del envío, el ID del estado y el nombre del usuario.
+
+---
 
 
