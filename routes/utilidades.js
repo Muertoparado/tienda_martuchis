@@ -35,8 +35,8 @@ app2.get('/envio/:id?', (req, res) => {
     const id = req.params.id; // Extraemos el valor del parámetro "id" de la solicitud
 
     const sqlQuery = (id)
-        ? [`SELECT u.fk_usu_id, u.fk_ciudad_id FROM ubicacion AS u WHERE fk_env_id = ?`, id]
-        : [`SELECT u.fk_usu_id, u.fk_ciudad_id FROM ubicacion AS u`];
+        ? [/*sql */`SELECT u.fk_usu_id, u.fk_ciudad_id FROM ubicacion AS u WHERE fk_env_id = ?`, id]
+        : [/*sql */`SELECT u.fk_usu_id, u.fk_ciudad_id FROM ubicacion AS u`];
 
     con.query(...sqlQuery, (err, data, fil) => {
         if (err) {
@@ -49,6 +49,21 @@ app2.get('/envio/:id?', (req, res) => {
         res.send(JSON.stringify(data));
         console.log(data);
     });
+});
+app2.get('/cantidad/:id', (req,res)=>{
+    const { id } = req.params;
+    con.query(/*sql */ `SELECT p.prod_id, p.prod_nombre, p.prod_cantidad  FROM producto AS p  WHERE p.prod_id=?
+    `,[id], (err,data,fil)=>{
+        if (err) {
+            console.error("Error al ejecutar la consulta de inserción: ", err);
+            res.status(500).send("Error al ejecutar la consulta de inserción");
+            return;
+        }
+   
+    console.log("GET cantidad por id");
+    res.send(JSON.stringify(data));
+    console.log(data);
+})  
 });
 
 export default app2;
