@@ -31,4 +31,24 @@ app2.get('/productos/:id?', (req, res) => {
     });
 });
 
+app2.get('/envio/:id?', (req, res) => {
+    const id = req.params.id; // Extraemos el valor del parámetro "id" de la solicitud
+
+    const sqlQuery = (id)
+        ? [`SELECT u.fk_usu_id, u.fk_ciudad_id FROM ubicacion AS u WHERE fk_env_id = ?`, id]
+        : [`SELECT u.fk_usu_id, u.fk_ciudad_id FROM ubicacion AS u`];
+
+    con.query(...sqlQuery, (err, data, fil) => {
+        if (err) {
+            console.error("Error al ejecutar la consulta: ", err);
+            res.status(500).send("Error al ejecutar la consulta");
+            return;
+        }
+
+        console.log("GET ID PEDIDO ESPECIFICO");
+        res.send(JSON.stringify(data));
+        console.log(data);
+    });
+});
+
 export default app2;
