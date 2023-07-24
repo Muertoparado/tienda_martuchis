@@ -16,8 +16,6 @@ import mysql from 'mysql2';
 import { SignJWT, jwtVerify } from "jose";
 
 
-
-
 let con= undefined;
 const app = Router();
 

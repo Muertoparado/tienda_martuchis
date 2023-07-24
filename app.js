@@ -1,5 +1,5 @@
 import express from 'express';
-//import app2 from './routers/utilidades.js';
+import app2 from './routes/utilidades.js';
 import app from './routes/PostTables.js'
 import dotenv from 'dotenv';
 dotenv.config();
@@ -7,7 +7,7 @@ const appExpress = express();
 
 appExpress.use(express.json());
 appExpress.use("/app", app);
-//appExpress.use("/app2",app2)
+appExpress.use("/app2",app2)
 
 
 
