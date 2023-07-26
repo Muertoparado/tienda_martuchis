@@ -206,10 +206,6 @@ si la respuesta es correcta se retornara esta respuesta
   "cat_nombre": "Electrónica"
 }
 ```
-
----
-Por supuesto, si deseas eliminar la sección de "Respuesta exitosa" en la documentación de los endpoints, puedes hacerlo para simplificar el README.md. Aquí tienes la versión actualizada:
-
 ---
 
 ## POST /ciudad/add
