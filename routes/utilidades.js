@@ -12,6 +12,7 @@ app2.use((req, res, next)=>{
     con = mysql.createPool(myConfig);
     next();
 });
+
 app2.get("/", async (req,res)=>{
     let json=JSON.stringify(req.body)
 
@@ -28,8 +29,17 @@ app2.get("/", async (req,res)=>{
     res.send(({jwt}));
 });
 
-app2.get('/productos/:id?', (req, res) => {
-    const id = req.params.id; // Extraemos el valor del parámetro "id" de la solicitud
+app2.get('/productos/:id?', async(req, res) => {
+    const id = req.params.id;
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).send({ message: "Unauthorized :(" });
+        try {
+            const encoder = new TextEncoder();
+            const jwtData = await jwtVerify(
+            authorization,
+            encoder.encode(process.env.JWT_PRIVATE_KEY)
+    );
+    console.log(jwtData);
 
     const sqlQuery = (id)
         ? [`SELECT * FROM producto WHERE prod_id = ? ORDER BY prod_nombre`, id]
@@ -46,10 +56,23 @@ app2.get('/productos/:id?', (req, res) => {
         res.send(JSON.stringify(data));
         console.log(data);
     });
+}catch (error) {
+    res.status(401).send({ message: "Token authentication failed :(" });
+}
 });
 
-app2.get('/envio/:id?', (req, res) => {
-    const id = req.params.id; // Extraemos el valor del parámetro "id" de la solicitud
+app2.get('/envio/:id?', async(req, res) => {
+    const id = req.params.id; 
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).send({ message: "Unauthorized :(" });
+
+        try {
+            const encoder = new TextEncoder();
+            const jwtData = await jwtVerify(
+            authorization,
+            encoder.encode(process.env.JWT_PRIVATE_KEY)
+    );
+    console.log(jwtData);
 
     const sqlQuery = (id)
         ? [/*sql */`SELECT u.fk_usu_id, u.fk_ciudad_id FROM ubicacion AS u WHERE fk_env_id = ?`, id]
@@ -66,9 +89,22 @@ app2.get('/envio/:id?', (req, res) => {
         res.send(JSON.stringify(data));
         console.log(data);
     });
+}catch (error) {
+    res.status(401).send({ message: "Token authentication failed :(" });
+}
 });
-app2.get('/cantidad/:id', (req,res)=>{
+app2.get('/cantidad/:id', async(req,res)=>{
     const { id } = req.params;
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).send({ message: "Unauthorized :(" });
+
+        try {
+            const encoder = new TextEncoder();
+            const jwtData = await jwtVerify(
+            authorization,
+            encoder.encode(process.env.JWT_PRIVATE_KEY)
+    );
+    console.log(jwtData);
     con.query(/*sql */ `SELECT p.prod_id, p.prod_nombre, p.prod_cantidad  FROM producto AS p  WHERE p.prod_id=?
     `,[id], (err,data,fil)=>{
         if (err) {
@@ -80,12 +116,25 @@ app2.get('/cantidad/:id', (req,res)=>{
     console.log("GET cantidad por id");
     res.send(JSON.stringify(data));
     console.log(data);
-})  
+})
+}catch (error) {
+    res.status(401).send({ message: "Token authentication failed :(" });
+}  
 });
 
-app2.put('/put/producto/:id', (req, res) => {
+app2.put('/put/producto/:id', async(req, res) => {
     const { id } = req.params; 
-    const { prod_cantidad } = req.body; 
+    const { prod_cantidad } = req.body;
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).send({ message: "Unauthorized :(" });
+
+        try {
+            const encoder = new TextEncoder();
+            const jwtData = await jwtVerify(
+            authorization,
+            encoder.encode(process.env.JWT_PRIVATE_KEY)
+    );
+    console.log(jwtData);
 
     if (typeof prod_cantidad !== 'number') {
         res.status(400).send({ message: "La cantidad del producto debe ser un número válido" });
@@ -107,10 +156,23 @@ app2.put('/put/producto/:id', (req, res) => {
         console.log("Producto actualizado exitosamente");
         res.send({ message: "Producto actualizado exitosamente" });
     });
+}catch (error) {
+    res.status(401).send({ message: "Token authentication failed :(" });
+}
 });
 
-app2.get('/estadoenvio/:id', (req,res)=>{
+app2.get('/estadoenvio/:id', async(req,res)=>{
     const { id } = req.params;
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).send({ message: "Unauthorized :(" });
+
+        try {
+            const encoder = new TextEncoder();
+            const jwtData = await jwtVerify(
+            authorization,
+            encoder.encode(process.env.JWT_PRIVATE_KEY)
+    );
+    console.log(jwtData);
     con.query(/*sql */ `SELECT e.env_id, e.fk_env_estado, est.est_nombre
     FROM envio AS e
     INNER JOIN ubicacion AS u ON e.env_id = u.fk_env_id
@@ -127,7 +189,10 @@ app2.get('/estadoenvio/:id', (req,res)=>{
     console.log("GET estado envio id usuario");
     res.send(JSON.stringify(data));
     console.log(data);
-})  
+})
+}catch (error) {
+    res.status(401).send({ message: "Token authentication failed :(" });
+} 
 });
 
 export default app2;
