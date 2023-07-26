@@ -1,4 +1,5 @@
 CREATE DATABASE tiendaMartuchis;
+
 USE tiendaMartuchis;
 CREATE TABLE tipo_documento( 
     tip_id INT NOT NULL PRIMARY KEY, 
