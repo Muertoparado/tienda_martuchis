@@ -24,7 +24,7 @@ El objetivo general del proyecto es crear una página web de comercio electróni
 
 ---
 
-# Guía para Inicializar un Repositorio de GitHub y Configurar las Dependencias
+# Guía para Inicializar el Repositorio de GitHub y Configurar las Dependencias
 
 Esta guía te ayudará a inicializar el repositorio de GitHub y a instalar las dependencias necesarias utilizando npm.
 
@@ -75,19 +75,62 @@ Este comando instalará todas las dependencias mencionadas con las versiones esp
 ## Paso 4: Iniciar el Proyecto
 
 Puedes iniciar el proyecto usando `npm start` para ejecutar la versión compilada en producción o `npm run dev` para ejecutar la versión en modo de desarrollo con nodemon.
+## Paso 4: Cargar la base de datos a un servidor local
+para la carga de la base de datos, vamos a partir de un ejemplo local para que cada persona pueda usar el proyecto dependiendo a su informacion, es necesario partir de la base de datos ya creada si no esta creada es necsario el siguiente comando.
+```sql
+CREATE DATABASE nombre_de_la_base_de_datos;
+``` 
+1. **Estructura de la Base de Datos:**
 
+   Antes de cargar la data registrada, debes asegurarte de tener la estructura adecuada en la base de datos. Para hacerlo, ejecuta el archivo SQL que contiene la estructura de la base de datos. Puedes hacerlo a través de la línea de comandos o utilizando alguna herramienta de administración de bases de datos como MySQL Workbench, phpMyAdmin o pgAdmin (dependiendo del motor de base de datos que estés utilizando).
+
+   ```php
+   mysql -u <usuario> -p <nombre_de_la_base_de_datos> < ruta_al_archivo_estructura.sql
+   ```
+
+2. **Cargar los Datos Registrados:**
+
+   Una vez que la estructura está en su lugar, ahora puedes cargar los datos registrados en la base de datos. Para hacerlo, ejecuta el archivo SQL que contiene los datos.
+
+   ```php
+   mysql -u <usuario> -p <nombre_de_la_base_de_datos> < ruta_al_archivo_datos.sql
+   ```
+
+   Asegúrate de reemplazar `<usuario>` con el nombre de usuario de tu base de datos y `<nombre_de_la_base_de_datos>` con el nombre de la base de datos donde deseas cargar los datos.
+
+3. **Verificar la Carga:**
+
+   Finalmente, verifica que los datos se hayan cargado correctamente en la base de datos. Puedes usar comandos SQL o la interfaz gráfica de la herramienta de administración de bases de datos que estés utilizando para consultar la tabla y asegurarte de que los registros estén allí.
+
+## Notas Adicionales:
+
+- Asegúrate de tener el motor de base de datos adecuado instalado en tu servidor local (por ejemplo, MySQL, PostgreSQL, SQLite, etc.) y tener acceso con el nombre de usuario y contraseña proporcionados.
+- Si los archivos SQL son muy grandes o contienen información sensible, considera proporcionar un enlace de descarga externo o utilizar un servicio de almacenamiento en la nube para compartir los archivos en lugar de incluirlos directamente en el repositorio.
+
+Con estos pasos, las personas que descarguen tu repositorio deberían poder cargar la base de datos en su servidor local y empezar a utilizarla. Recuerda siempre proporcionar instrucciones claras para que el proceso sea lo más sencillo y seguro posible.
 
 ## ESTRUCTURA DEL PROYECTO
 
 ## *Nota*
-Por favor, asegúrate de que el servidor y la base de datos estén configurados correctamente antes de realizar las pruebas con estos endpoints. También es importante tener en cuenta que los tokens JWT generados con el endpoint GET {server}/app/ tienen una vigencia de 1 hora.
+Por favor, asegúrate de que el servidor y la base de datos estén configurados correctamente antes de realizar las pruebas con estos endpoints. También es importante tener en cuenta que los tokens JWT generados con el endpoint tienen una vigencia de 1 hora.  
+ ```bash
+ GET {server}/{opcion app}/
+ ``` 
+
+```bash
+get /app/   (token de post para las tablas de la base de datos)
+```
+
+```bash
+get /app2/   (token para get de utilidades de la pagina)
+```
 
 En este caso explicaremos los metodos post generales para guardar y validar la información en cada tabla.
 
 ## terminos generales
 ---
 ### **Descripción**
-Este endpoint se utiliza para agregar una nueva valoración a la base de datos.
+Aqui podra ver la funcionalidad principal al diligenciar esa ruta.
 
 ### **Método**
 POST
@@ -221,7 +264,6 @@ si la respuesta es correcta se retornara esta respuesta
   "fk_departamento": 1
 }
 ```
-
 ---
 
 ## POST /estado/add
@@ -235,7 +277,6 @@ si la respuesta es correcta se retornara esta respuesta
   "est_nombre": "Pendiente"
 }
 ```
-
 ---
 
 ## POST /envio/add
@@ -249,7 +290,6 @@ si la respuesta es correcta se retornara esta respuesta
   "fk_env_estado": 1
 }
 ```
-
 ---
 
 ## POST /venta/add
@@ -265,7 +305,6 @@ si la respuesta es correcta se retornara esta respuesta
   "fk_factura_id": 1
 }
 ```
-
 ---
 
 ## POST /factura/add
@@ -278,7 +317,6 @@ si la respuesta es correcta se retornara esta respuesta
   "fac_id": 1
 }
 ```
-
 ---
 
 ## POST /producto/add
@@ -296,13 +334,10 @@ si la respuesta es correcta se retornara esta respuesta
   "prod_imagen": "url_de_la_imagen"
 }
 ```
-
 ---
-
 ## POST /categoria/add
 
 **Descripción:** Agrega una nueva categoría a la base de datos.
-
 ### Cuerpo de la solicitud
 ```json
 {
@@ -310,11 +345,10 @@ si la respuesta es correcta se retornara esta respuesta
   "cat_nombre": "Electrónica"
 }
 ```
-
 ---
 
 # FUNCIONALIDAD ENDPOINTS ESPECIALES 
-**url (/app2/...)**
+## url ({server}/app2/...)**
 ---
 A continuación, se presenta la documentación actualizada para los endpoints proporcionados:
 
