@@ -78,10 +78,10 @@ MY_CONFIG={"hostname":"127.3.3.1", "port":5100}
 MY_CONNECT={"host":"localhost","database":"tiendaMartuchis", "user": "campus", "password": "campus2023", "port":3306} 
 JWT_PRIVATE_KEY=campus 
 ```
-## Paso 4: Iniciar el Proyecto
+## Paso 5: Iniciar el Proyecto
 
 Puedes iniciar el proyecto usando `npm start` para ejecutar la versión compilada en producción o `npm run dev` para ejecutar la versión en modo de desarrollo con nodemon.
-## Paso 4: Cargar la base de datos a un servidor local
+## Paso 6: Cargar la base de datos a un servidor local
 para la carga de la base de datos, vamos a partir de un ejemplo local para que cada persona pueda usar el proyecto dependiendo a su informacion, es necesario partir de la base de datos ya creada si no esta creada es necsario el siguiente comando.
 ```sql
 CREATE DATABASE nombre_de_la_base_de_datos;
