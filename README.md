@@ -71,7 +71,13 @@ Este comando instalará todas las dependencias mencionadas con las versiones esp
     "tsc": "tsc -w"
   },
 ```
+## Paso 4: Configuracion ejemplo practica archivo .env
 
+```json
+MY_CONFIG={"hostname":"127.3.3.1", "port":5100}
+MY_CONNECT={"host":"localhost","database":"tiendaMartuchis", "user": "campus", "password": "campus2023", "port":3306} 
+JWT_PRIVATE_KEY=campus 
+```
 ## Paso 4: Iniciar el Proyecto
 
 Puedes iniciar el proyecto usando `npm start` para ejecutar la versión compilada en producción o `npm run dev` para ejecutar la versión en modo de desarrollo con nodemon.
